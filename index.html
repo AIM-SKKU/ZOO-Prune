@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="ZOO-Prune: Training-Free Token Pruning via Zeroth-Order Gradient Estimation in Vision-Language Models.">
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ZOO-Prune: Training-Free Token Pruning via Zeroth-Order Gradient Estimation in Vision-Language Models</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+    <style>
+      .carousel { overflow: hidden; }
+      .carousel-item { min-width: 100% !important; }
+    </style>  
+  <link rel="icon" type="image/x-icon" href="./static/images/logo.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"> ZOO-Prune: Training-Free Token Pruning via Zeroth-Order Gradient Estimation in Vision-Language Models</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href='https://lotusroot-kim.github.io/research_homepage/' target='_blank'>Youngeun Kim*</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href='https://youjia-zhang.github.io/' target='_blank'>Youjia Zhang*</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href='https://scholar.google.com/citations?view_op=list_works&hl=en&user=WQfYo0MAAAAJ' target='_blank'>Huiling Liu </a><sup>2</sup>,
+            </span>
+            <br>
+            <span class="author-block">
+              <a href='https://sites.google.com/view/kasurashan' target='_blank'>Aecheon Jung</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href='https://sites.google.com/view/sunwoolee/' target='_blank'>Sunwoo Lee</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href='https://www.csehong.com/' target='_blank'>Sungeun Hong</a><sup>2</sup>
+            </span>
+          </div>
+
+        <br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Amazon,</span>
+            &nbsp;&nbsp;
+            <span class="author-block"><sup>2</sup>Sungkyunkwan University</span>
+            &nbsp;&nbsp;
+            <span class="author-block"><sup>3</sup>Inha University</span>
+          </div>
+          
+          <div class="is-size-6 has-text-centered" style="margin-top: 10px; color: #555;">
+            * Equal contribution
+          </div>
+          
+          <div style="margin-top: 10px; display: flex; justify-content: center; align-items: center; gap: 8px;">
+            <img src="./static/images/chiikawa-hachiware.gif" style="height: 3.0em;">
+            <span style="font-size: 1.2rem; font-weight: 600;">CVPR 2026 Poster</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2509.24837"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Github link -->
+              <span class="link-block">
+              <a href="https://github.com/AIM-SKKU/ZOO-Prune" target="_blank"
+              class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                <i class="fab fa-github"></i>
+              </span>
+              <span>Code</span>
+              </a>
+            </span>
+            <!-- Poster link -->
+            <span class="link-block">
+              <a href="./static/CVPR26_ZOO-Prune_Poster.pdf" target="_blank"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="fas fa-image"></i>
+                </span>
+                <span>Poster</span>
+              </a>
+            </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Concept Figure Section -->
+<div class="has-text-centered">
+  <img src="./static/images/ZOO-Prune.png" style="max-width:70%; height:auto;">
+  <div style="font-weight:bold; text-align:center; margin-top:8px;">
+    Overview of ZOO-Prune
+  </div>
+</div>
+
+  
+
+<section class="section py-3">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Large Vision-Language Models (VLMs) enable strong multimodal inference but suffer from heavy computation due to redundant visual tokens. Token pruning offers a promising solution, yet existing methods often rely on attention scores or diversity heuristics, which do not directly reflect how tokens affect the model output.
+          </p>
+          <p>
+            We propose ZOO-Prune, a training-free framework that estimates token importance through zeroth-order sensitivity at the lightweight projection layer. By measuring output changes under small perturbations and combining sensitivity with diversity, ZOO-Prune retains informative and non-redundant tokens without requiring backpropagation. Extensive experiments across multiple VLMs and benchmarks show that our method consistently outperforms prior approaches while pruning up to 94.4% of tokens without sacrificing accuracy, and achieves up to 2.30× faster end-to-end inference.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+<!-- Introduction Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+      <img src="./static/images/shelving.png" style="height: 2em;">
+      <span>Introduction</span>
+    </h2>
+    <div class="content has-text-justified">
+      <p>
+        Existing visual token pruning methods often rely on attention scores or diversity heuristics.
+        However, attention can be unstable across layers and heads, while diversity alone does not
+        directly reflect task relevance. As a result, prior methods may fail to capture how individual
+        tokens truly affect the model output.
+      </p>
+      <p>
+        ZOO-Prune is motivated by a simple question: which visual tokens most strongly influence the
+        final prediction? To answer this, we estimate token sensitivity through zeroth-order perturbations,
+        yielding an output-aware and training-free importance signal without requiring backpropagation.
+      </p>
+    </div>
+
+    <div class="has-text-centered" style="margin-top: 24px;">
+      <img src="./static/images/motivation.png" style="max-width:85%; height:auto;">
+    </div>
+  </div>
+</section>
+
+
+<!-- Motivateion Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+      <img src="./static/images/creativity.png" style="height: 2em;">
+      <span>Motivation</span>
+    </h2>
+    <div class="content has-text-justified">
+      <p>
+        The core idea of ZOO-Prune is to measure token importance through <b>token sensitivity</b>, namely how much the model output changes when a token is perturbed.
+      </p>
+      <p>
+        To make this practical for large vision-language models, we estimate sensitivity with <b>zeroth-order perturbations</b> at the lightweight projection layer. This avoids backpropagation and provides an efficient output-aware importance signal.
+      </p>
+      <p>
+        We then combine this sensitivity signal with token diversity, so that the selected subset remains both informative and non-redundant under aggressive pruning.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Method Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+      <img src="./static/images/Conversation.gif" style="height: 3em;">
+      <span>Method</span>
+    </h2>
+
+    <div class="has-text-centered" style="margin-bottom: 24px;">
+      <img src="./static/images/Method_Overview.png" style="max-width:100%; height:auto;">
+    </div>
+
+    <div class="content has-text-justified">
+      <p>
+        ZOO-Prune consists of two main components.
+      </p>
+      <p>
+        <b>ZOO-based Sensitivity Estimation.</b> We estimate the importance of each visual token by measuring output changes under small random perturbations. This forward-only procedure provides a practical approximation of token influence without requiring gradients.
+      </p>
+      <p>
+        <b>Sensitivity-Aware Diversity Selection.</b> Based on the estimated sensitivity scores, we select a subset of tokens that balances importance and diversity. This helps retain task-relevant information while avoiding redundant selections.
+      </p>
+      <p>
+        Since the sensitivity estimation is performed at the lightweight projection layer, ZOO-Prune can be applied efficiently to existing VLMs as a plug-in pruning strategy.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop">
+    <div class="content" style="padding-left: 0; padding-right: 0;">
+      <h2 class="title" style="display: flex; align-items: center; justify-content: flex-start; gap: 4px; margin-bottom: 0.75rem; padding-left: 0rem;">
+        <img src="./static/images/Loader%20cat.gif" style="height:3em; margin-left: -1em;">
+        <span>BibTeX</span>
+      </h2>
+
+      <p style="margin-left: 0;">If you find our work useful, please consider citing:</p>
+
+<pre style="margin-left: 0;"><code>@article{kim2025training,
+  title={Training-Free Token Pruning via Zeroth-Order Gradient Estimation in Vision-Language Models},
+  author={Kim, Youngeun and Zhang, Youjia and Liu, Huiling and Jung, Aecheon and Lee, Sunwoo and Hong, Sungeun},
+  journal={arXiv preprint arXiv:2509.24837},
+  year={2025}
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+
+</body>
+</html>
