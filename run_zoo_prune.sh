@@ -24,7 +24,7 @@ RUN_NAME="ZOO_Prune_${model_name_short}_${token}_Token"
 
 HF_TOKEN="HF_token" \
 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
-CUDA_VISIBLE_DEVICES=4,5,6,7 \
+CUDA_VISIBLE_DEVICES="GPU_IDs" \
 BASELINE=OURS \
 ARCHIVE_MODE=$model_name \
 LAYER_INDEX=0 \
