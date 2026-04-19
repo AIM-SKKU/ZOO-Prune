@@ -336,16 +336,45 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    bulmaCarousel.attach('.results-carousel', {
+    const carousels = bulmaCarousel.attach('.results-carousel', {
       slidesToScroll: 1,
       slidesToShow: 1,
       loop: true,
       autoplay: true,
       autoplaySpeed: 3500,
       pauseOnHover: true,
-      pagination: true,
+      pagination: false,
       navigation: true
     });
+
+    const pageButtons = document.querySelectorAll('.results-page-btn');
+
+    function setActiveButton(index) {
+      pageButtons.forEach((btn, i) => {
+        if (i === index) {
+          btn.classList.add('is-active');
+        } else {
+          btn.classList.remove('is-active');
+        }
+      });
+    }
+
+    if (carousels.length > 0) {
+      const carousel = carousels[0];
+
+      pageButtons.forEach((btn) => {
+        btn.addEventListener('click', function () {
+          const index = parseInt(this.dataset.index, 10);
+          carousel.state.index = index;
+          carousel.show(index);
+          setActiveButton(index);
+        });
+      });
+
+      carousel.on('before:show', function(state) {
+        setActiveButton(state.index);
+      });
+    }
   });
 </script>
 </body>
