@@ -200,50 +200,25 @@
 
 
 <!-- Introduction Section -->
+<!-- Introduction Section -->
 <section class="section">
   <div class="container is-max-desktop">
     <h2 class="title is-3" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
       <img src="./static/images/shelving.png" style="height: 2em;">
       <span>Introduction</span>
     </h2>
+
     <div class="content has-text-justified">
       <p>
-        Existing visual token pruning methods often rely on attention scores or diversity heuristics.
-        However, attention can be unstable across layers and heads, while diversity alone does not
-        directly reflect task relevance. As a result, prior methods may fail to capture how individual
-        tokens truly affect the model output.
+        Visual token pruning has become an effective way to improve the inference efficiency of large vision-language models by removing redundant visual tokens. Existing training-free methods mainly rely on attention scores or diversity heuristics. However, attention can be unstable across layers and heads, while diversity alone does not directly reflect how individual tokens affect the final model output.
       </p>
       <p>
-        ZOO-Prune is motivated by a simple question: which visual tokens most strongly influence the
-        final prediction? To answer this, we estimate token sensitivity through zeroth-order perturbations,
-        yielding an output-aware and training-free importance signal without requiring backpropagation.
+        ZOO-Prune is motivated by a simple question: which visual tokens most strongly influence the final prediction? To answer this, we estimate token sensitivity through zeroth-order perturbations at the lightweight projection layer, which provides an efficient output-aware importance signal without requiring backpropagation. Based on these sensitivity scores, ZOO-Prune further combines diversity-aware selection to preserve informative and non-redundant tokens under aggressive pruning.
       </p>
     </div>
 
     <div class="has-text-centered" style="margin-top: 24px;">
       <img src="./static/images/motivation.png" style="max-width:85%; height:auto;">
-    </div>
-  </div>
-</section>
-
-
-<!-- Motivateion Section -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
-      <img src="./static/images/creativity.png" style="height: 2em;">
-      <span>Motivation</span>
-    </h2>
-    <div class="content has-text-justified">
-      <p>
-        The core idea of ZOO-Prune is to measure token importance through <b>token sensitivity</b>, namely how much the model output changes when a token is perturbed.
-      </p>
-      <p>
-        To make this practical for large vision-language models, we estimate sensitivity with <b>zeroth-order perturbations</b> at the lightweight projection layer. This avoids backpropagation and provides an efficient output-aware importance signal.
-      </p>
-      <p>
-        We then combine this sensitivity signal with token diversity, so that the selected subset remains both informative and non-redundant under aggressive pruning.
-      </p>
     </div>
   </div>
 </section>
