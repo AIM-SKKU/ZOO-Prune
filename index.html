@@ -19,6 +19,21 @@
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
     <style>
+      .carousel {
+        overflow: hidden;
+        position: relative;
+      }
+    
+      .carousel .item {
+        width: 100%;
+        flex: 0 0 100%;
+      }
+    
+      .carousel-item {
+        min-width: 100% !important;
+      }
+    
+      .results-page-btn,
       .qual-page-btn-1,
       .qual-page-btn-2 {
         width: 42px;
@@ -32,12 +47,14 @@
         transition: all 0.25s ease;
       }
     
+      .results-page-btn:hover,
       .qual-page-btn-1:hover,
       .qual-page-btn-2:hover {
         background: #f3f6fb;
         border-color: #bfcde0;
       }
     
+      .results-page-btn.is-active,
       .qual-page-btn-1.is-active,
       .qual-page-btn-2.is-active {
         background: #4a76d1;
