@@ -19,19 +19,19 @@
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
     <style>
-      .carousel {
-        position: relative;
-        width: 100%;
-      }
-    
-      .carousel .item {
-        display: none;
-        width: 100%;
-      }
-    
-      .carousel .item.is-active {
-        display: block;
-      }
+        .carousel {
+          overflow: hidden;
+          position: relative;
+        }
+        
+        .carousel .item {
+          width: 100%;
+          flex: 0 0 100%;
+        }
+        
+        .carousel-item {
+          min-width: 100% !important;
+        }
     
       .results-page-btn,
       .qual-page-btn-1,
@@ -291,7 +291,7 @@
 </div>
 
   <div class="carousel results-carousel" style="margin-top: 24px;">
-    <div class="item has-text-centered is-active">
+    <div class="item has-text-centered">
       <img src="./static/images/MainResults_LLaVA-1.5-7B.png" style="max-width:100%; max-height:560px; width:auto; height:auto; border-radius: 12px;">
       <div style="max-width: 860px; margin: 0 auto;">
         <p style="margin-top: 12px; font-weight: 700; font-size: 1.05rem;">LLaVA-1.5-7B</p>
