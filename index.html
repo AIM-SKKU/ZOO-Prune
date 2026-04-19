@@ -171,9 +171,9 @@
 <!-- Concept Figure Section -->
 <div class="has-text-centered">
   <img src="./static/images/ZOO-Prune.png" style="max-width:70%; height:auto;">
-  <div style="font-weight:bold; text-align:center; margin-top:8px;">
-    Overview of ZOO-Prune: ZOO-Prune is a training-free visual token pruning framework that estimates token sensitivity with zeroth-order perturbations at the projection layer and combines it with diversity-aware selection.
-  </div>
+    <div style="font-weight:600; text-align:center; margin-top:8px;">
+      Overview of ZOO-Prune. Token sensitivity is estimated at the projection layer and combined with diversity-aware selection for training-free visual token pruning.
+    </div>
 </div>
 
   
@@ -258,15 +258,20 @@
 
     <div class="has-text-centered" style="margin-bottom: 24px;">
       <img src="./static/images/Method_Overview.png" style="max-width:100%; height:auto;">
+      <div style="margin-top: 8px; font-weight: 600;">
+        Method overview. ZOO-Prune estimates token sensitivity at the projection layer and combines it with diversity-aware selection.
+      </div>
     </div>
 
-    <div class="content has-text-justified">
-      <ul>
-        <li><b>Forward-only sensitivity estimation:</b> measures token influence without backpropagation.</li>
-        <li><b>Projection-layer analysis:</b> provides an efficient proxy for token importance.</li>
-        <li><b>Sensitivity-aware diversity selection:</b> keeps informative and non-redundant tokens.</li>
-      </ul>
-    </div>
+  <div class="content has-text-justified">
+    <p>
+      ZOO-Prune performs training-free visual token pruning in two stages. It first estimates the sensitivity of each visual token through zeroth-order perturbations at the lightweight projection layer, and then selects a compact subset of tokens by combining sensitivity with diversity.
+    </p>
+    <ul>
+      <li><b>Zeroth-order sensitivity estimation.</b> Token importance is measured by the output change caused by small random perturbations, without requiring backpropagation.</li>
+      <li><b>Projection-layer proxy.</b> Sensitivity is computed at the projection layer, which provides an efficient and effective proxy for visual token importance.</li>
+      <li><b>Sensitivity-aware diversity selection.</b> The final token subset preserves both informative and complementary visual content under aggressive pruning.</li>
+    </ul>
   </div>
 </section>
 
