@@ -20,17 +20,17 @@
   <link rel="stylesheet" href="./static/css/index.css">
     <style>
       .carousel {
-        overflow: hidden;
         position: relative;
+        width: 100%;
       }
     
       .carousel .item {
+        display: none;
         width: 100%;
-        flex: 0 0 100%;
       }
     
-      .carousel-item {
-        min-width: 100% !important;
+      .carousel .item.is-active {
+        display: block;
       }
     
       .results-page-btn,
@@ -465,46 +465,31 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    function setActiveButton(buttons, index) {
-      buttons.forEach((btn, i) => {
-        btn.classList.toggle('is-active', i === index);
-      });
-    }
+    function setupSimpleCarousel(carouselSelector, buttonSelector, intervalMs) {
+      const carousel = document.querySelector(carouselSelector);
+      if (!carousel) return;
 
-    function setupCarousel(carouselSelector, buttonSelector, totalSlides, intervalMs) {
-      const carouselList = bulmaCarousel.attach(carouselSelector, {
-        slidesToScroll: 1,
-        slidesToShow: 1,
-        loop: true,
-        autoplay: false,
-        pauseOnHover: true,
-        pagination: false,
-        navigation: true
-      });
-
-      if (!carouselList || carouselList.length === 0) return;
-
-      const carousel = carouselList[0];
+      const items = carousel.querySelectorAll('.item');
       const buttons = document.querySelectorAll(buttonSelector);
+      if (!items.length) return;
 
       let currentIndex = 0;
       let timer = null;
 
-      function goTo(index) {
-        currentIndex = ((index % totalSlides) + totalSlides) % totalSlides;
+      function updateView(index) {
+        currentIndex = (index + items.length) % items.length;
 
-        setActiveButton(buttons, currentIndex);
+        items.forEach((item, i) => {
+          item.classList.toggle('is-active', i === currentIndex);
+        });
 
-        if (typeof carousel.show === 'function') {
-          carousel.show(currentIndex);
-        } else if (typeof carousel.next === 'function') {
-          // fallback: if direct show is unavailable, approximate by restarting from current state
-          // this branch is unlikely, but kept for robustness
-        }
+        buttons.forEach((btn, i) => {
+          btn.classList.toggle('is-active', i === currentIndex);
+        });
       }
 
       function nextSlide() {
-        goTo(currentIndex + 1);
+        updateView(currentIndex + 1);
       }
 
       function startAuto() {
@@ -522,33 +507,21 @@
       buttons.forEach((btn) => {
         btn.addEventListener('click', function () {
           const index = parseInt(this.dataset.index, 10);
-          goTo(index);
+          updateView(index);
           startAuto();
         });
       });
 
-      if (typeof carousel.on === 'function') {
-        carousel.on('before:show', function (state) {
-          if (state && typeof state.index === 'number') {
-            currentIndex = state.index;
-            setActiveButton(buttons, currentIndex);
-          }
-        });
-      }
+      carousel.addEventListener('mouseenter', stopAuto);
+      carousel.addEventListener('mouseleave', startAuto);
 
-      const carouselElement = document.querySelector(carouselSelector);
-      if (carouselElement) {
-        carouselElement.addEventListener('mouseenter', stopAuto);
-        carouselElement.addEventListener('mouseleave', startAuto);
-      }
-
-      goTo(0);
+      updateView(0);
       startAuto();
     }
 
-    setupCarousel('.results-carousel', '.results-page-btn', 3, 5000);
-    setupCarousel('.qualitative-carousel-1', '.qual-page-btn-1', 4, 5000);
-    setupCarousel('.qualitative-carousel-2', '.qual-page-btn-2', 3, 5000);
+    setupSimpleCarousel('.results-carousel', '.results-page-btn', 5000);
+    setupSimpleCarousel('.qualitative-carousel-1', '.qual-page-btn-1', 5000);
+    setupSimpleCarousel('.qualitative-carousel-2', '.qual-page-btn-2', 5000);
   });
 </script>
 </body>
