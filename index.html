@@ -19,19 +19,19 @@
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
     <style>
-        .carousel {
-          overflow: hidden;
-          position: relative;
-        }
-        
-        .carousel .item {
-          width: 100%;
-          flex: 0 0 100%;
-        }
-        
-        .carousel-item {
-          min-width: 100% !important;
-        }
+      .carousel {
+        position: relative;
+        width: 100%;
+      }
+      
+      .carousel .item {
+        display: none;
+        width: 100%;
+      }
+      
+      .carousel .item.is-active {
+        display: block;
+      }
     
       .results-page-btn,
       .qual-page-btn-1,
