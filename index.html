@@ -261,18 +261,11 @@
     </div>
 
     <div class="content has-text-justified">
-      <p>
-        ZOO-Prune consists of two main components.
-      </p>
-      <p>
-        <b>ZOO-based Sensitivity Estimation.</b> We estimate the importance of each visual token by measuring output changes under small random perturbations. This forward-only procedure provides a practical approximation of token influence without requiring gradients.
-      </p>
-      <p>
-        <b>Sensitivity-Aware Diversity Selection.</b> Based on the estimated sensitivity scores, we select a subset of tokens that balances importance and diversity. This helps retain task-relevant information while avoiding redundant selections.
-      </p>
-      <p>
-        Since the sensitivity estimation is performed at the lightweight projection layer, ZOO-Prune can be applied efficiently to existing VLMs as a plug-in pruning strategy.
-      </p>
+      <ul>
+        <li><b>Forward-only sensitivity estimation:</b> measures token influence without backpropagation.</li>
+        <li><b>Projection-layer analysis:</b> provides an efficient proxy for token importance.</li>
+        <li><b>Sensitivity-aware diversity selection:</b> keeps informative and non-redundant tokens.</li>
+      </ul>
     </div>
   </div>
 </section>
