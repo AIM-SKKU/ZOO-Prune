@@ -238,31 +238,34 @@
       <span>Main Results</span>
     </h2>
 
-    <div class="content has-text-justified">
-      <p>
-        ZOO-Prune consistently achieves a strong accuracy-efficiency trade-off across multiple vision-language models and benchmarks.
-        It preserves high task performance even under aggressive pruning ratios, outperforming prior training-free pruning methods.
-      </p>
-      <p>
-        Across LLaVA-1.5-7B, LLaVA-1.5-13B, and LLaVA-NeXT-7B, ZOO-Prune maintains strong performance under substantial token reduction,
-        showing that sensitivity-aware token selection generalizes well across different VLM scales.
-      </p>
+  <div class="carousel results-carousel" style="margin-top: 24px;">
+    <div class="item has-text-centered">
+      <img src="./static/images/MainResults_LLaVA-1.5-7B.png" style="max-width:100%; max-height:560px; width:auto; height:auto; border-radius: 12px;">
+      <div style="max-width: 860px; margin: 0 auto;">
+        <p style="margin-top: 12px; font-weight: 700; font-size: 1.05rem;">LLaVA-1.5-7B</p>
+        <p style="margin-top: 6px; color: #444; font-size: 0.98rem;">
+          📌 On <b>LLaVA-1.5-7B</b>, ZOO-Prune achieves the best average performance across all pruning ratios, retaining <b>98.6%</b>, <b>97.8%</b>, and <b>95.5%</b> performance with only <b>192</b>, <b>128</b>, and <b>64</b> tokens, respectively.
+        </p>
+      </div>
     </div>
-
-    <div class="carousel results-carousel" style="margin-top: 24px;">
-      <div class="item has-text-centered">
-        <img src="./static/images/MainResults_LLaVA-1.5-7B.png" style="max-width:100%; max-height:560px; width:auto; height:auto; border-radius: 12px;">
-        <p style="margin-top: 10px; font-weight: 600;">Main Results on LLaVA-1.5-7B</p>
+  
+    <div class="item has-text-centered">
+      <img src="./static/images/MainResults_LLaVA-1.5-13B.png" style="max-width:100%; max-height:560px; width:auto; height:auto; border-radius: 12px;">
+      <div style="max-width: 860px; margin: 0 auto;">
+        <p style="margin-top: 12px; font-weight: 700; font-size: 1.05rem;">LLaVA-1.5-13B</p>
+        <p style="margin-top: 6px; color: #444; font-size: 0.98rem;">
+          ✨ On <b>LLaVA-1.5-13B</b>, ZOO-Prune consistently remains the top-performing method, preserving <b>98.6%</b>, <b>97.8%</b>, and <b>96.5%</b> performance under substantial token reduction, showing strong generalization to a larger VLM.
+        </p>
       </div>
-
-      <div class="item has-text-centered">
-        <img src="./static/images/MainResults_LLaVA-1.5-13B.png" style="max-width:100%; max-height:560px; width:auto; height:auto; border-radius: 12px;">
-        <p style="margin-top: 10px; font-weight: 600;">Main Results on LLaVA-1.5-13B</p>
-      </div>
-
-      <div class="item has-text-centered">
-        <img src="./static/images/MainResults_LLaVA-NeXT-7B.png" style="max-width:100%; max-height:560px; width:auto; height:auto; border-radius: 12px;">
-        <p style="margin-top: 10px; font-weight: 600;">Main Results on LLaVA-NeXT-7B</p>
+    </div>
+  
+    <div class="item has-text-centered">
+      <img src="./static/images/MainResults_LLaVA-NeXT-7B.png" style="max-width:100%; max-height:560px; width:auto; height:auto; border-radius: 12px;">
+      <div style="max-width: 860px; margin: 0 auto;">
+        <p style="margin-top: 12px; font-weight: 700; font-size: 1.05rem;">LLaVA-NeXT-7B</p>
+        <p style="margin-top: 6px; color: #444; font-size: 0.98rem;">
+          🚀 On <b>LLaVA-NeXT-7B</b>, ZOO-Prune maintains <b>98.3%</b> performance with <b>640</b> tokens, <b>97.1%</b> with <b>320</b> tokens, and still reaches <b>95.4%</b> with only <b>160</b> tokens, demonstrating strong scalability under high-resolution token pruning.
+        </p>
       </div>
     </div>
   </div>
