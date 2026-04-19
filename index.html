@@ -20,17 +20,17 @@
   <link rel="stylesheet" href="./static/css/index.css">
     <style>
       .carousel {
+        overflow: hidden;
         position: relative;
-        width: 100%;
       }
     
       .carousel .item {
-        display: none;
         width: 100%;
+        flex: 0 0 100%;
       }
     
-      .carousel .item.is-active {
-        display: block;
+      .carousel-item {
+        min-width: 100% !important;
       }
     
       .results-page-btn,
