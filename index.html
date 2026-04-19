@@ -18,11 +18,9 @@
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
-        <style>
-      .carousel { overflow: hidden; }
-      .carousel-item { min-width: 100% !important; }
-    
-      .results-page-btn {
+    <style>
+      .qual-page-btn-1,
+      .qual-page-btn-2 {
         width: 42px;
         height: 42px;
         border-radius: 999px;
@@ -34,12 +32,14 @@
         transition: all 0.25s ease;
       }
     
-      .results-page-btn:hover {
+      .qual-page-btn-1:hover,
+      .qual-page-btn-2:hover {
         background: #f3f6fb;
         border-color: #bfcde0;
       }
     
-      .results-page-btn.is-active {
+      .qual-page-btn-1.is-active,
+      .qual-page-btn-2.is-active {
         background: #4a76d1;
         color: #ffffff;
         border-color: #4a76d1;
@@ -312,6 +312,118 @@
   </div>
 </section>
 
+<!-- Qualitative Comparison Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+      <img src="./static/images/your_qual_icon.gif" style="height: 2.5em;">
+      <span>Qualitative Comparison</span>
+    </h2>
+
+    <div class="content has-text-justified">
+      <p>
+        We further compare the selected visual tokens on the GQA benchmark to better understand how different pruning criteria behave under compression.
+      </p>
+      <p>
+        Text-visual attention often suffers from positional bias, while visual-visual attention tends to preserve redundant token clusters. Diversity-based pruning improves spatial spread but may miss semantically important regions. ZOO-based sensitivity captures output-related tokens more effectively, and ZOO-Prune further balances sensitivity and diversity for more robust token selection across compression ratios.
+      </p>
+    </div>
+
+    <div class="carousel qualitative-carousel-1" style="margin-top: 24px;">
+      <div class="item has-text-centered">
+        <img src="./static/images/Qualitative_1.png" style="max-width:100%; max-height:560px; width:auto; height:auto; border-radius: 12px;">
+        <div style="max-width: 900px; margin: 0 auto;">
+          <p style="margin-top: 12px; font-weight: 700; font-size: 1.05rem;">Attention vs. Diversity vs. Sensitivity 1</p>
+          <p style="margin-top: 6px; color: #444; font-size: 0.98rem;">
+            🔍 This example shows how different token selection strategies behave on GQA, highlighting the contrast between attention-based, diversity-based, sensitivity-based, and our final ZOO-Prune selection.
+          </p>
+        </div>
+      </div>
+
+      <div class="item has-text-centered">
+        <img src="./static/images/Qualitative_2.png" style="max-width:100%; max-height:560px; width:auto; height:auto; border-radius: 12px;">
+        <div style="max-width: 900px; margin: 0 auto;">
+          <p style="margin-top: 12px; font-weight: 700; font-size: 1.05rem;">Attention vs. Diversity vs. Sensitivity 2</p>
+          <p style="margin-top: 6px; color: #444; font-size: 0.98rem;">
+            📍 Text-visual attention can be biased toward locally related regions, while visual-visual attention often keeps overlapping token clusters instead of the most informative ones.
+          </p>
+        </div>
+      </div>
+
+      <div class="item has-text-centered">
+        <img src="./static/images/Qualitative_3.png" style="max-width:100%; max-height:560px; width:auto; height:auto; border-radius: 12px;">
+        <div style="max-width: 900px; margin: 0 auto;">
+          <p style="margin-top: 12px; font-weight: 700; font-size: 1.05rem;">Attention vs. Diversity vs. Sensitivity 3</p>
+          <p style="margin-top: 6px; color: #444; font-size: 0.98rem;">
+            🧩 Diversity-based pruning spreads selected tokens more broadly, but it may overlook regions that are more critical to the final prediction.
+          </p>
+        </div>
+      </div>
+
+      <div class="item has-text-centered">
+        <img src="./static/images/Qualitative_4.png" style="max-width:100%; max-height:560px; width:auto; height:auto; border-radius: 12px;">
+        <div style="max-width: 900px; margin: 0 auto;">
+          <p style="margin-top: 12px; font-weight: 700; font-size: 1.05rem;">Attention vs. Diversity vs. Sensitivity 4</p>
+          <p style="margin-top: 6px; color: #444; font-size: 0.98rem;">
+            ⚖️ ZOO-Prune jointly optimizes sensitivity and diversity, leading to a more balanced selection of informative and complementary visual tokens across pruning ratios.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="qualitative-pagination-1" style="display:flex; justify-content:center; align-items:center; gap:14px; margin-top:22px;">
+      <button class="qual-page-btn-1 is-active" data-index="0">1</button>
+      <button class="qual-page-btn-1" data-index="1">2</button>
+      <button class="qual-page-btn-1" data-index="2">3</button>
+      <button class="qual-page-btn-1" data-index="3">4</button>
+    </div>
+
+    <div class="content has-text-justified" style="margin-top: 40px;">
+      <p>
+        We also provide direct mask-level comparisons among representative training-free baselines. Compared with VisionZip and DivPrune, ZOO-Prune preserves more task-relevant regions while avoiding overly redundant or overly dispersed token selections.
+      </p>
+    </div>
+
+    <div class="carousel qualitative-carousel-2" style="margin-top: 24px;">
+      <div class="item has-text-centered">
+        <img src="./static/images/Qualitative_3methods_1.png" style="max-width:100%; max-height:560px; width:auto; height:auto; border-radius: 12px;">
+        <div style="max-width: 900px; margin: 0 auto;">
+          <p style="margin-top: 12px; font-weight: 700; font-size: 1.05rem;">Comparison Across Methods 1</p>
+          <p style="margin-top: 6px; color: #444; font-size: 0.98rem;">
+            🖼️ This comparison highlights the qualitative differences between VisionZip, DivPrune, and ZOO-Prune on GQA under the same pruning setting.
+          </p>
+        </div>
+      </div>
+
+      <div class="item has-text-centered">
+        <img src="./static/images/Qualitative_3methods_2.png" style="max-width:100%; max-height:560px; width:auto; height:auto; border-radius: 12px;">
+        <div style="max-width: 900px; margin: 0 auto;">
+          <p style="margin-top: 12px; font-weight: 700; font-size: 1.05rem;">Comparison Across Methods 2</p>
+          <p style="margin-top: 6px; color: #444; font-size: 0.98rem;">
+            🌟 ZOO-Prune better preserves visually meaningful regions by selecting tokens that are both output-related and less redundant than those chosen by prior methods.
+          </p>
+        </div>
+      </div>
+
+      <div class="item has-text-centered">
+        <img src="./static/images/Qualitative_3methods_3.png" style="max-width:100%; max-height:560px; width:auto; height:auto; border-radius: 12px;">
+        <div style="max-width: 900px; margin: 0 auto;">
+          <p style="margin-top: 12px; font-weight: 700; font-size: 1.05rem;">Comparison Across Methods 3</p>
+          <p style="margin-top: 6px; color: #444; font-size: 0.98rem;">
+            ✅ Across examples, ZOO-Prune produces more balanced token masks, avoiding the redundancy of attention-driven pruning and the semantic looseness of diversity-only selection.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="qualitative-pagination-2" style="display:flex; justify-content:center; align-items:center; gap:14px; margin-top:22px;">
+      <button class="qual-page-btn-2 is-active" data-index="0">1</button>
+      <button class="qual-page-btn-2" data-index="1">2</button>
+      <button class="qual-page-btn-2" data-index="2">3</button>
+    </div>
+  </div>
+</section>
+
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop">
@@ -336,7 +448,18 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const carousels = bulmaCarousel.attach('.results-carousel', {
+    function setActiveButton(buttons, index) {
+      buttons.forEach((btn, i) => {
+        if (i === index) {
+          btn.classList.add('is-active');
+        } else {
+          btn.classList.remove('is-active');
+        }
+      });
+    }
+
+    // Main Results
+    const resultCarousels = bulmaCarousel.attach('.results-carousel', {
       slidesToScroll: 1,
       slidesToShow: 1,
       loop: true,
@@ -347,32 +470,84 @@
       navigation: true
     });
 
-    const pageButtons = document.querySelectorAll('.results-page-btn');
+    const resultButtons = document.querySelectorAll('.results-page-btn');
 
-    function setActiveButton(index) {
-      pageButtons.forEach((btn, i) => {
-        if (i === index) {
-          btn.classList.add('is-active');
-        } else {
-          btn.classList.remove('is-active');
-        }
-      });
-    }
+    if (resultCarousels.length > 0) {
+      const resultCarousel = resultCarousels[0];
 
-    if (carousels.length > 0) {
-      const carousel = carousels[0];
-
-      pageButtons.forEach((btn) => {
+      resultButtons.forEach((btn) => {
         btn.addEventListener('click', function () {
           const index = parseInt(this.dataset.index, 10);
-          carousel.state.index = index;
-          carousel.show(index);
-          setActiveButton(index);
+          resultCarousel.state.index = index;
+          resultCarousel.show(index);
+          setActiveButton(resultButtons, index);
         });
       });
 
-      carousel.on('before:show', function(state) {
-        setActiveButton(state.index);
+      resultCarousel.on('before:show', function(state) {
+        setActiveButton(resultButtons, state.index);
+      });
+    }
+
+    // Qualitative Comparison Group 1
+    const qualCarousels1 = bulmaCarousel.attach('.qualitative-carousel-1', {
+      slidesToScroll: 1,
+      slidesToShow: 1,
+      loop: true,
+      autoplay: true,
+      autoplaySpeed: 5000,
+      pauseOnHover: true,
+      pagination: false,
+      navigation: true
+    });
+
+    const qualButtons1 = document.querySelectorAll('.qual-page-btn-1');
+
+    if (qualCarousels1.length > 0) {
+      const qualCarousel1 = qualCarousels1[0];
+
+      qualButtons1.forEach((btn) => {
+        btn.addEventListener('click', function () {
+          const index = parseInt(this.dataset.index, 10);
+          qualCarousel1.state.index = index;
+          qualCarousel1.show(index);
+          setActiveButton(qualButtons1, index);
+        });
+      });
+
+      qualCarousel1.on('before:show', function(state) {
+        setActiveButton(qualButtons1, state.index);
+      });
+    }
+
+    // Qualitative Comparison Group 2
+    const qualCarousels2 = bulmaCarousel.attach('.qualitative-carousel-2', {
+      slidesToScroll: 1,
+      slidesToShow: 1,
+      loop: true,
+      autoplay: true,
+      autoplaySpeed: 5000,
+      pauseOnHover: true,
+      pagination: false,
+      navigation: true
+    });
+
+    const qualButtons2 = document.querySelectorAll('.qual-page-btn-2');
+
+    if (qualCarousels2.length > 0) {
+      const qualCarousel2 = qualCarousels2[0];
+
+      qualButtons2.forEach((btn) => {
+        btn.addEventListener('click', function () {
+          const index = parseInt(this.dataset.index, 10);
+          qualCarousel2.state.index = index;
+          qualCarousel2.show(index);
+          setActiveButton(qualButtons2, index);
+        });
+      });
+
+      qualCarousel2.on('before:show', function(state) {
+        setActiveButton(qualButtons2, state.index);
       });
     }
   });
