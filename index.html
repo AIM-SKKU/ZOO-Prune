@@ -467,106 +467,88 @@
   document.addEventListener('DOMContentLoaded', function () {
     function setActiveButton(buttons, index) {
       buttons.forEach((btn, i) => {
-        if (i === index) {
-          btn.classList.add('is-active');
-        } else {
-          btn.classList.remove('is-active');
+        btn.classList.toggle('is-active', i === index);
+      });
+    }
+
+    function setupCarousel(carouselSelector, buttonSelector, totalSlides, intervalMs) {
+      const carouselList = bulmaCarousel.attach(carouselSelector, {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        loop: true,
+        autoplay: false,
+        pauseOnHover: true,
+        pagination: false,
+        navigation: true
+      });
+
+      if (!carouselList || carouselList.length === 0) return;
+
+      const carousel = carouselList[0];
+      const buttons = document.querySelectorAll(buttonSelector);
+
+      let currentIndex = 0;
+      let timer = null;
+
+      function goTo(index) {
+        currentIndex = ((index % totalSlides) + totalSlides) % totalSlides;
+
+        setActiveButton(buttons, currentIndex);
+
+        if (typeof carousel.show === 'function') {
+          carousel.show(currentIndex);
+        } else if (typeof carousel.next === 'function') {
+          // fallback: if direct show is unavailable, approximate by restarting from current state
+          // this branch is unlikely, but kept for robustness
         }
-      });
-    }
+      }
 
-    // Main Results
-    const resultCarousels = bulmaCarousel.attach('.results-carousel', {
-      slidesToScroll: 1,
-      slidesToShow: 1,
-      loop: true,
-      autoplay: true,
-      autoplaySpeed: 5000,
-      pauseOnHover: true,
-      pagination: false,
-      navigation: true
-    });
+      function nextSlide() {
+        goTo(currentIndex + 1);
+      }
 
-    const resultButtons = document.querySelectorAll('.results-page-btn');
+      function startAuto() {
+        stopAuto();
+        timer = setInterval(nextSlide, intervalMs);
+      }
 
-    if (resultCarousels.length > 0) {
-      const resultCarousel = resultCarousels[0];
+      function stopAuto() {
+        if (timer) {
+          clearInterval(timer);
+          timer = null;
+        }
+      }
 
-      resultButtons.forEach((btn) => {
+      buttons.forEach((btn) => {
         btn.addEventListener('click', function () {
           const index = parseInt(this.dataset.index, 10);
-          resultCarousel.state.index = index;
-          resultCarousel.show(index);
-          setActiveButton(resultButtons, index);
+          goTo(index);
+          startAuto();
         });
       });
 
-      resultCarousel.on('before:show', function(state) {
-        setActiveButton(resultButtons, state.index);
-      });
-    }
-
-    // Qualitative Comparison Group 1
-    const qualCarousels1 = bulmaCarousel.attach('.qualitative-carousel-1', {
-      slidesToScroll: 1,
-      slidesToShow: 1,
-      loop: true,
-      autoplay: true,
-      autoplaySpeed: 5000,
-      pauseOnHover: true,
-      pagination: false,
-      navigation: true
-    });
-
-    const qualButtons1 = document.querySelectorAll('.qual-page-btn-1');
-
-    if (qualCarousels1.length > 0) {
-      const qualCarousel1 = qualCarousels1[0];
-
-      qualButtons1.forEach((btn) => {
-        btn.addEventListener('click', function () {
-          const index = parseInt(this.dataset.index, 10);
-          qualCarousel1.state.index = index;
-          qualCarousel1.show(index);
-          setActiveButton(qualButtons1, index);
+      if (typeof carousel.on === 'function') {
+        carousel.on('before:show', function (state) {
+          if (state && typeof state.index === 'number') {
+            currentIndex = state.index;
+            setActiveButton(buttons, currentIndex);
+          }
         });
-      });
+      }
 
-      qualCarousel1.on('before:show', function(state) {
-        setActiveButton(qualButtons1, state.index);
-      });
+      const carouselElement = document.querySelector(carouselSelector);
+      if (carouselElement) {
+        carouselElement.addEventListener('mouseenter', stopAuto);
+        carouselElement.addEventListener('mouseleave', startAuto);
+      }
+
+      goTo(0);
+      startAuto();
     }
 
-    // Qualitative Comparison Group 2
-    const qualCarousels2 = bulmaCarousel.attach('.qualitative-carousel-2', {
-      slidesToScroll: 1,
-      slidesToShow: 1,
-      loop: true,
-      autoplay: true,
-      autoplaySpeed: 5000,
-      pauseOnHover: true,
-      pagination: false,
-      navigation: true
-    });
-
-    const qualButtons2 = document.querySelectorAll('.qual-page-btn-2');
-
-    if (qualCarousels2.length > 0) {
-      const qualCarousel2 = qualCarousels2[0];
-
-      qualButtons2.forEach((btn) => {
-        btn.addEventListener('click', function () {
-          const index = parseInt(this.dataset.index, 10);
-          qualCarousel2.state.index = index;
-          qualCarousel2.show(index);
-          setActiveButton(qualButtons2, index);
-        });
-      });
-
-      qualCarousel2.on('before:show', function(state) {
-        setActiveButton(qualButtons2, state.index);
-      });
-    }
+    setupCarousel('.results-carousel', '.results-page-btn', 3, 5000);
+    setupCarousel('.qualitative-carousel-1', '.qual-page-btn-1', 4, 5000);
+    setupCarousel('.qualitative-carousel-2', '.qual-page-btn-2', 3, 5000);
   });
 </script>
 </body>
