@@ -230,6 +230,43 @@
   </div>
 </section>
 
+<!-- Main Results Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+      <img src="./static/images/your_result_icon.gif" style="height: 2.5em;">
+      <span>Main Results</span>
+    </h2>
+
+    <div class="content has-text-justified">
+      <p>
+        ZOO-Prune consistently achieves a strong accuracy-efficiency trade-off across multiple vision-language models and benchmarks.
+        It preserves high task performance even under aggressive pruning ratios, outperforming prior training-free pruning methods.
+      </p>
+      <p>
+        Across LLaVA-1.5-7B, LLaVA-1.5-13B, and LLaVA-NeXT-7B, ZOO-Prune maintains strong performance under substantial token reduction,
+        showing that sensitivity-aware token selection generalizes well across different VLM scales.
+      </p>
+    </div>
+
+    <div class="carousel results-carousel" style="margin-top: 24px;">
+      <div class="item has-text-centered">
+        <img src="./static/images/MainResults_LLaVA-1.5-7B.png" style="max-width:100%; max-height:560px; width:auto; height:auto; border-radius: 12px;">
+        <p style="margin-top: 10px; font-weight: 600;">Main Results on LLaVA-1.5-7B</p>
+      </div>
+
+      <div class="item has-text-centered">
+        <img src="./static/images/MainResults_LLaVA-1.5-13B.png" style="max-width:100%; max-height:560px; width:auto; height:auto; border-radius: 12px;">
+        <p style="margin-top: 10px; font-weight: 600;">Main Results on LLaVA-1.5-13B</p>
+      </div>
+
+      <div class="item has-text-centered">
+        <img src="./static/images/MainResults_LLaVA-NeXT-7B.png" style="max-width:100%; max-height:560px; width:auto; height:auto; border-radius: 12px;">
+        <p style="margin-top: 10px; font-weight: 600;">Main Results on LLaVA-NeXT-7B</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 <section class="section" id="BibTeX">
@@ -253,5 +290,19 @@
 </section>
 
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    bulmaCarousel.attach('.results-carousel', {
+      slidesToScroll: 1,
+      slidesToShow: 1,
+      loop: true,
+      autoplay: true,
+      autoplaySpeed: 3500,
+      pauseOnHover: true,
+      pagination: true,
+      navigation: true
+    });
+  });
+</script>
 </body>
 </html>
