@@ -199,9 +199,8 @@ class LlavaMetaForCausalLM(ABC):
                selected_dists = torch.index_select(dist_matrix, 0, selected[:i])  # [i, N_v]
                min_dist_to_selected = selected_dists.min(dim=0).values  # [N_v]
               
-               # ✅ Hybrid Score: distance × sensitivity
+               # Hybrid Score: distance × sensitivity
                scores = min_dist_to_selected * sens_weight  # higher score：more important and higher min_dis
-            #    scores = alpha*min_dist_to_selected + (1-alpha)*sens_weight  # 越重要、距离越远，得分越高
         
            mask = torch.ones(N_v, dtype=torch.bool, device=device)
            if i > 0:
