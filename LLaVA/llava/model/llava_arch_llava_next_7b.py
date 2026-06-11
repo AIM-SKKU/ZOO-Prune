@@ -430,168 +430,6 @@ class LlavaMetaForCausalLM(ABC):
        return image_features, sensitivity_score
    
 
-  
-#    def compute_sensitivity_end2end(self, images, num_refine=64, h=1e-2):
-#        """
-#        Compute sensitivity scores by perturbing vision tower encoder inputs (embeds).
-#        Args:
-#            embeds: torch.Tensor [1, N+1, D_model], pre-encoder embeddings
-#            num_refine: number of perturbation directions (m)
-#            h: step size
-#            noise_scale: scale for Gaussian noise (optional, can be 0)
-#        """
-#        device = images.device
-#        dtype = images.dtype
-#        m = num_refine
-#        h = h *10
-
-
-#        # === Step 1: replicate embeds to batch m ===
-#        vision_wrapper = self.get_model().get_vision_tower()
-#        vision_model = vision_wrapper.vision_tower  # HuggingFace CLIPVisionModel
-#        # inference mode
-#        vision_wrapper.eval()
-#        vision_model.eval()
-  
-#        # === Step 1: Patch Embedding ===
-#        embeds = vision_wrapper.vision_tower.vision_model.embeddings(
-#            images.to(device=self.device, dtype=self.dtype)
-#        )       
-#        embeds = vision_wrapper.vision_tower.vision_model.pre_layrnorm(embeds)
-#        embeds_rep = embeds.repeat(m, 1, 1).contiguous()  # [m, N+1, D_model]
-
-
-
-
-#        # === Step 2: create noise directions ===
-#        D_model = embeds.size(-1)
-#        u = torch.randn(m, D_model, device=device, dtype=dtype)
-#        u = u / (u.norm(dim=-1, keepdim=True) + 1e-12)  # [m, D_model]
-#        # expand to tokens: [m, N+1, D_model]
-#        u_expanded = u.unsqueeze(1).expand(-1, embeds_rep.size(1), -1)
-
-
-#        if (embeds_rep.size(0) > u_expanded.size(0)):
-#            embeds_rep = embeds_rep[:u_expanded.size(0), ...]
-
-
-
-
-#        # === Step 3: perturb embeds ===
-#        perturb_plus = embeds_rep + h * u_expanded
-#        perturb_minus = embeds_rep - h * u_expanded
-
-
-#        vision_wrapper = self.get_model().get_vision_tower()
-#        vision_model = vision_wrapper.vision_tower
-
-
-#        # === Step 4: run encoder ===
-#        with torch.no_grad():
-#            encoder_outs_plus = vision_model.vision_model.encoder(
-#                inputs_embeds=perturb_plus,
-#                attention_mask=None,
-#                causal_attention_mask=None,
-#                output_hidden_states=True,
-#                return_dict=True,
-#            )
-#            encoder_outs_minus = vision_model.vision_model.encoder(
-#                inputs_embeds=perturb_minus,
-#                attention_mask=None,
-#                causal_attention_mask=None,
-#                output_hidden_states=True,
-#                return_dict=True,
-#            )
-
-
-#        # === Step 5: feature selection (remove CLS, etc.) ===
-#        features_plus = vision_wrapper.feature_select(encoder_outs_plus).to(dtype)   # [m, N_v, d_v]
-#        features_minus = vision_wrapper.feature_select(encoder_outs_minus).to(dtype) # [m, N_v, d_v]
-
-
-#        # === Step 6: project ===
-#        proj_plus = self.get_model().mm_projector(features_plus)   # [m, N_v, d_l]
-#        proj_minus = self.get_model().mm_projector(features_minus) # [m, N_v, d_l]
-
-
-#        # === Step 7: compute sensitivity ===
-#        delta_proj = proj_plus - proj_minus          # [m, N_v, d_l]
-#        coeff = delta_proj.norm(dim=-1) / (2 * h)    # [m, N_v]
-#        importance_scores = coeff.mean(dim=0)        # [N_v]
-
-
-#        return importance_scores
-
-
-  
-  
-#    def encode_images_with_noise(self, images,  noise_scale=0.01, num_refine=64, h=1e-2,  debug=True):
-#        import inspect
-
-
-#        vision_wrapper = self.get_model().get_vision_tower()
-#        vision_model = vision_wrapper.vision_tower  # HuggingFace CLIPVisionModel
-#        # inference mode
-#        vision_wrapper.eval()
-#        vision_model.eval()
-   
-
-
-#        # === Step 1: Patch Embedding ===
-#        embeds = vision_wrapper.vision_tower.vision_model.embeddings(images.to(device=self.device, dtype=self.dtype))       
-#        embeds = vision_wrapper.vision_tower.vision_model.pre_layrnorm(embeds)
-
-
-#        # --- Add noise here ---
-#        noise = torch.randn_like(embeds) * noise_scale
-#        embeds_noisy = embeds + noise
-
-
-#        # === Step 2: Transformer Blocks ===
-#        encoder_outputs = vision_model.vision_model.encoder(
-#            embeds,
-#            attention_mask=None,
-#            causal_attention_mask=None,
-#            output_hidden_states=True,   # 필요하면 True로
-#            return_dict=True
-#        )
-
-
-#        my_implementation_final_clean =  vision_wrapper.feature_select(encoder_outputs).to(images.dtype)
-#        image_features_clean = self.get_model().mm_projector(my_implementation_final_clean)
-
-
-
-
-#        # === Step 2: Transformer Blocks ===
-#        encoder_outputs_noisy = vision_model.vision_model.encoder(
-#            embeds_noisy,
-#            attention_mask=None,
-#            causal_attention_mask=None,
-#            output_hidden_states=True,   # 필요하면 True로
-#            return_dict=True
-#        )
-
-
-#        my_implementation_final_nosiy =  vision_wrapper.feature_select(encoder_outputs_noisy).to(images.dtype)
-#        image_features_noisy = self.get_model().mm_projector(my_implementation_final_nosiy)
-
-
-#         # === Step 3: Sensitivity 계산 ===
-#        importance_scores = self.compute_sensitivity(
-#            my_implementation_final_clean.squeeze(0),  # [N_v, d_v]
-#        )
-
-
-#        # print(inspect.getsource(self.get_model().get_vision_tower().forward))
-#        # print(inspect.getsource(vision_wrapper.vision_tower.vision_model.forward))
-
-
-#        return image_features_clean, image_features_noisy
-
-
-
-
    def prepare_inputs_labels_for_multimodal(
        self, input_ids, position_ids, attention_mask, past_key_values, labels,
        images, image_sizes=None
@@ -609,7 +447,7 @@ class LlavaMetaForCausalLM(ABC):
            split_sizes = [image.shape[0] for image in images]
 
            image_features = torch.split(image_features, split_sizes, dim=0)
-           sensitivity_scores = torch.split(sensitivity_scores, split_sizes, dim=0)## 修改
+           sensitivity_scores = torch.split(sensitivity_scores, split_sizes, dim=0)
 
  
            mm_patch_merge_type = getattr(self.config, 'mm_patch_merge_type', 'flat')
@@ -933,36 +771,6 @@ class LlavaMetaForCausalLM(ABC):
           
            selected_visual_tokens = torch.cat([selected_visual_tokens, inf_indices_senstivitiy_score], dim=0)
            selected_visual_tokens = torch.unique(selected_visual_tokens)
-
-
-
-           # ================================== for exp compare the ranking between mm_porjector
-
-           # importance_scores_from_end2end_visiontower = self.compute_sensitivity_end2end(images, num_refine, h)
-           # spearman_score = plot_token_importance_scatter(importance_scores, importance_scores_from_end2end_visiontower)
-           # if spearman_score >0.3:
-           #     MEMORY_A.append(importance_scores)
-           #     MEMORY_B.append(importance_scores_from_end2end_visiontower)
-          
-           # if len(MEMORY_A)>0:
-           #     plot_rank_correlation(MEMORY_A,MEMORY_B)
-
-           # plot_topk_overlap(importance_scores, importance_scores_from_end2end_visiontower,
-           #       ks=np.linspace(0.001, 1.0, 50),
-           #       mode="fraction",
-           #       )
-          
-
-           #============= [Original DivPrune] ==============================
-           # print ("new_input_embeds[0].size()", new_input_embeds[0].size())
-           # visual_tokens =new_input_embeds[0][SYS_TOKEN_LEN:SYS_TOKEN_LEN+img_feature_len]
-           # print ("img_feature_len :", img_feature_len)
-           # print ("visual_tokens.size():", visual_tokens.size())
-           # print ('....................................')
-
-
-           # selected_visual_tokens, cosine_matrix = self.DivPrune(visual_tokens, img_feature_len,cosine_matrix,threshold_ratio=diverse_ratio)
-      
            selected_visual_tokens += SYS_TOKEN_LEN
            keep_indexs = torch.cat((torch.arange(SYS_TOKEN_LEN,device=new_input_embeds.device), selected_visual_tokens, torch.arange(SYS_TOKEN_LEN+img_feature_len,new_input_embeds.shape[1],device=new_input_embeds.device)))
            keep_indexs = keep_indexs.sort().values
