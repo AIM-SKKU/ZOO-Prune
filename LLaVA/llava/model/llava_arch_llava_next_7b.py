@@ -453,7 +453,7 @@ class LlavaMetaForCausalLM(ABC):
            mm_patch_merge_type = getattr(self.config, 'mm_patch_merge_type', 'flat')
            image_aspect_ratio = getattr(self.config, 'image_aspect_ratio', 'square')
 
-           #### 修改
+           ####
            image_frame_labels = [torch.arange(s.size(0), device=s.device).view(s.size(0), 1, 1).expand(s.size(0), s.size(1), 1) for s in sensitivity_scores]# [N, 576, 1]
 
 
@@ -467,7 +467,7 @@ class LlavaMetaForCausalLM(ABC):
                    if image_feature.shape[0] > 1:
                        base_image_feature = image_feature[0]
 
-                        #### 修改
+                        ####
                        base_sensitivity_score = sensitivity_scores[image_idx][0]
                        base_image_frame_label = image_frame_labels[image_idx][0]
 
