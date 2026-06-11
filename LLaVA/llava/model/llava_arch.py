@@ -170,7 +170,7 @@ class LlavaMetaForCausalLM(ABC):
         N_v = visual_feature_vectors.shape[0]
         device = visual_feature_vectors.device
         
-        # 1. 유사도 행렬 계산: 1 - cosine similarity
+        # 1. 1 - cosine similarity
         with torch.no_grad():
            # [N_v, N_v]
            cosine_sim = F.cosine_similarity(
@@ -193,7 +193,7 @@ class LlavaMetaForCausalLM(ABC):
         
         for i in range(k):
            if i == 0:
-            #    scores = dist_matrix.mean(dim=0)  # 또는 torch.topk(dist_matrix, 2, dim=0).values[1,:]
+            #    scores = dist_matrix.mean(dim=0)  # torch.topk(dist_matrix, 2, dim=0).values[1,:]
                 scores = sens_weight
            else:
                selected_dists = torch.index_select(dist_matrix, 0, selected[:i])  # [i, N_v]
