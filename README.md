@@ -3,7 +3,7 @@
 > Authors: [Youngeun Kim<sup>1*](https://lotusroot-kim.github.io/research_homepage/), [Youjia Zhang<sup>2*](https://youjia-zhang.github.io/), [Huiling Liu<sup>2](https://scholar.google.com/citations?view_op=list_works&hl=en&user=WQfYo0MAAAAJ), [Aecheon Jung<sup>2](https://sites.google.com/view/kasurashan), [Sunwoo Lee<sup>3](https://sites.google.com/view/sunwoolee/), [Sungeun Hong<sup>2</sup>](https://www.csehong.com/) <br>
 > <sup>1</sup>Amazon, <sup>2</sup>Sungkyunkwan University, <sup>3</sup>Inha University
 
-<a href="https://aim-skku.github.io/ZOO-Prune/"><img src="https://img.shields.io/static/v1?label=Project%20Page&message=Github&color=blue&logo=github-pages"></a> &ensp; <a href="https://arxiv.org/pdf/2509.24837"><img src="https://img.shields.io/static/v1?label=Paper&message=Arxiv:ZOO-Prune&color=red&logo=arxiv"></a> &ensp;
+<a href="https://aim-skku.github.io/ZOO-Prune/"><img src="https://img.shields.io/static/v1?label=Project%20Page&message=Github&color=blue&logo=github-pages"></a> &ensp; <a href="https://openaccess.thecvf.com/content/CVPR2026/html/Kim_ZOO-Prune_Training-Free_Token_Pruning_via_Zeroth-Order_Gradient_Estimation_in_Vision-Language_CVPR_2026_paper.html"><img src="https://img.shields.io/static/v1?label=Paper&message=ZOO-Prune&color=red&logo=arxiv"></a> &ensp;
 
 
 <p align=center><img src="images/Overview.png" width="1024px"></p>
@@ -49,11 +49,13 @@ This script provides a simple entry point for evaluating the model with a predef
 If you find this work useful, please consider citing it.
 
 ```
-@article{kim2025training,
-  title={Training-Free Token Pruning via Zeroth-Order Gradient Estimation in Vision-Language Models},
-  author={Kim, Youngeun and Zhang, Youjia and Liu, Huiling and Jung, Aecheon and Lee, Sunwoo and Hong, Sungeun},
-  journal={arXiv preprint arXiv:2509.24837},
-  year={2025}
+@InProceedings{Kim_2026_CVPR,
+    author    = {Kim, Youngeun and Zhang, Youjia and Liu, Huiling and Jung, Aecheon and Lee, Sunwoo and Hong, Sungeun},
+    title     = {ZOO-Prune: Training-Free Token Pruning via Zeroth-Order Gradient Estimation in Vision-Language Models},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    month     = {June},
+    year      = {2026},
+    pages     = {39572-39582}
 }
 ```
 
