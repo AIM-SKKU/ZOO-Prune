@@ -426,7 +426,7 @@ class Llava(lmms):
             #         use_cache=self.use_cache,
             #     )
             try:
-                #divprune: for evaluting the latency
+                #for evaluting the latency
                 try:
                     has_eval_time = os.environ['EVAL_TIME']
                 except KeyError:
