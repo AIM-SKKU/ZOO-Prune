@@ -220,7 +220,7 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
         #     inputs_embeds=inputs_embeds,
         #     **kwargs
         # )
-        #DivPrune: adjust for inference time evaluation 
+        #adjust for inference time evaluation 
 
         try:
             has_eval_time = os.environ['EVAL_TIME']
