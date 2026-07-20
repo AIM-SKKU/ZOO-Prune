@@ -32,7 +32,7 @@ if 'BASELINE' in os.environ and os.environ['BASELINE'] == 'OURS':
     else:
         from ..llava_arch import LlavaMetaModel, LlavaMetaForCausalLM
 else:
-    from ..llava_arch import LlavaMetaModel, LlavaMetaForCausalLM
+    from ..llava_arch_default import LlavaMetaModel, LlavaMetaForCausalLM
 
 
 
