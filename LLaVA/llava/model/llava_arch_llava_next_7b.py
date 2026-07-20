@@ -364,7 +364,7 @@ class LlavaMetaForCausalLM(ABC):
 
 
        N_i, N_v, d_v = original_features.shape # N_i=5, N_v,=576 d_v=1024
-       m = int(os.environ.get('NNOISERECOV_NUM', 64))   # number of random directions
+       m = int(os.environ.get('NOISERECOV_NUM', 64))   # number of random directions
        h = float(os.environ.get('NOISERECOV_INTENS', 1e-2))  # finite difference step size
        device, dtype = original_features.device, original_features.dtype
 
