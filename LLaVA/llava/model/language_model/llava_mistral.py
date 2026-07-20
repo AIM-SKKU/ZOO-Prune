@@ -27,11 +27,10 @@ from transformers.generation.utils import GenerateOutput
 
 # from ..llava_arch import LlavaMetaModel, LlavaMetaForCausalLM
 
-if 'BASELINE' in os.environ and os.environ['BASELINE'] == 'OURS':
-    if 'ARCHIVE_MODE' in os.environ and os.environ['ARCHIVE_MODE'] == 'liuhaotian/llava-v1.6-vicuna-7b':
-        from ..llava_arch_llava_next_7b import LlavaMetaModel, LlavaMetaForCausalLM
+if os.environ.get("BASELINE") == "OURS" and os.environ.get("ARCHIVE_MODE") == "liuhaotian/llava-v1.6-vicuna-7b":
+    from ..llava_arch_llava_next_7b import LlavaMetaModel, LlavaMetaForCausalLM
 else:
-    from ..llava_arch import LlavaMetaModel, LlavaMetaForCausalLM   
+    from ..llava_arch import LlavaMetaModel, LlavaMetaForCausalLM 
 
 
 class LlavaMistralConfig(MistralConfig):
