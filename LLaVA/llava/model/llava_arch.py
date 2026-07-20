@@ -397,7 +397,7 @@ class LlavaMetaForCausalLM(ABC):
             position_ids = None
 
         #zoo-Prune
-        if 'LAYER_INDEX' in os.environ:
+        if 'LAYER_INDEX' in os.environ and os.environ.get("BASELINE") == "OURS":
             #print("I am called without layer 0")
             if type(image_features) == list: #this is for LLaVA 1.6
                 img_feature_len = image_features[0].shape[0] #example is 2340x4096
@@ -409,7 +409,7 @@ class LlavaMetaForCausalLM(ABC):
             else:
                 setattr(self.config, 'img_feature_len', img_feature_len)
 
-        if 'LAYER_INDEX' in os.environ and os.environ['LAYER_INDEX']=='0':
+        if os.environ.get("BASELINE") == "OURS" and 'LAYER_INDEX' in os.environ and os.environ['LAYER_INDEX']=='0':
             
             SYS_TOKEN_LEN = 35
             diverse_ratio = float(os.environ['SUBSET_RATIO']) #define the subset selection ratio
