@@ -25,7 +25,7 @@ from transformers import AutoConfig, AutoModelForCausalLM, \
 if 'ARCHIVE_MODE' in os.environ and os.environ['ARCHIVE_MODE'] == 'liuhaotian/llava-v1.6-vicuna-7b':
     from ..llava_arch_llava_next_7b import LlavaMetaModel, LlavaMetaForCausalLM
 else:
-    from ..llava_arch_default import LlavaMetaModel, LlavaMetaForCausalLM
+    from ..llava_arch import LlavaMetaModel, LlavaMetaForCausalLM
 
 
 
